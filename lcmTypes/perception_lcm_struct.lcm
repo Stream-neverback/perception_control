@@ -10,6 +10,7 @@ struct robot_states
     double   left_foot_quat[4];
     double   right_foot_pos[3];
     double   right_foot_quat[4];
+    double   camera_quat[4];
 }
 
 struct perception_information
