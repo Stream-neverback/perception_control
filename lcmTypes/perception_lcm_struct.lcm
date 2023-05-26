@@ -11,9 +11,14 @@ struct robot_states
     double   right_foot_pos[3];
     double   right_foot_quat[4];
     double   camera_quat[4];
+    double   swing_foot_init_pos[6];
+    double   plan_swings[2];
+    double   plan_stances[2];
 }
 
 struct perception_information
 {
     double   recommended_footholds[6]; 
+    double   height[2];
+    double   pitch_ref;
 }

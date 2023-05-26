@@ -34,6 +34,12 @@ class robot_states
 
         double     camera_quat[4];
 
+        double     swing_foot_init_pos[6];
+
+        double     plan_swings[2];
+
+        double     plan_stances[2];
+
     public:
         /**
          * Encode a message into binary form.
@@ -157,6 +163,15 @@ int robot_states::_encodeNoHash(void *buf, int offset, int maxlen) const
     tlen = __double_encode_array(buf, offset + pos, maxlen - pos, &this->camera_quat[0], 4);
     if(tlen < 0) return tlen; else pos += tlen;
 
+    tlen = __double_encode_array(buf, offset + pos, maxlen - pos, &this->swing_foot_init_pos[0], 6);
+    if(tlen < 0) return tlen; else pos += tlen;
+
+    tlen = __double_encode_array(buf, offset + pos, maxlen - pos, &this->plan_swings[0], 2);
+    if(tlen < 0) return tlen; else pos += tlen;
+
+    tlen = __double_encode_array(buf, offset + pos, maxlen - pos, &this->plan_stances[0], 2);
+    if(tlen < 0) return tlen; else pos += tlen;
+
     return pos;
 }
 
@@ -191,6 +206,15 @@ int robot_states::_decodeNoHash(const void *buf, int offset, int maxlen)
     tlen = __double_decode_array(buf, offset + pos, maxlen - pos, &this->camera_quat[0], 4);
     if(tlen < 0) return tlen; else pos += tlen;
 
+    tlen = __double_decode_array(buf, offset + pos, maxlen - pos, &this->swing_foot_init_pos[0], 6);
+    if(tlen < 0) return tlen; else pos += tlen;
+
+    tlen = __double_decode_array(buf, offset + pos, maxlen - pos, &this->plan_swings[0], 2);
+    if(tlen < 0) return tlen; else pos += tlen;
+
+    tlen = __double_decode_array(buf, offset + pos, maxlen - pos, &this->plan_stances[0], 2);
+    if(tlen < 0) return tlen; else pos += tlen;
+
     return pos;
 }
 
@@ -206,12 +230,15 @@ int robot_states::_getEncodedSizeNoHash() const
     enc_size += __double_encoded_array_size(NULL, 3);
     enc_size += __double_encoded_array_size(NULL, 4);
     enc_size += __double_encoded_array_size(NULL, 4);
+    enc_size += __double_encoded_array_size(NULL, 6);
+    enc_size += __double_encoded_array_size(NULL, 2);
+    enc_size += __double_encoded_array_size(NULL, 2);
     return enc_size;
 }
 
 uint64_t robot_states::_computeHash(const __lcm_hash_ptr *)
 {
-    uint64_t hash = 0x20c4b8a7d9a781b1LL;
+    uint64_t hash = 0xce477465d0884837LL;
     return (hash<<1) + ((hash>>63)&1);
 }
 
