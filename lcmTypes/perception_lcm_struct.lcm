@@ -14,6 +14,7 @@ struct robot_states
     double   swing_foot_init_pos[6];
     double   plan_swings[2];
     double   plan_stances[2];
+    double   default_swing_total_time[2];
 }
 
 struct perception_information
@@ -21,4 +22,5 @@ struct perception_information
     double   recommended_footholds[6]; 
     double   height[2];
     double   pitch_ref;
+    double   recommended_swing_times[2];
 }
