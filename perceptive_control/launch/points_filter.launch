@@ -1,0 +1,5 @@
+<launch>
+    <node pkg="perceptive_control" type="pointcloud_filters_node" name="pointcloud_filters_node" output="screen"/>
+    <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="camer_optical_link_to_filter_one" args="0 0 0 0 0 0 camera_depth_optical_frame camera_depth_optical_filter_frame"/> -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find perceptive_control)/rviz/filter_rviz.rviz" />
+</launch>
