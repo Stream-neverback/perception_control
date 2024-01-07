@@ -22,8 +22,6 @@ class perception_information
 
         double     pitch_ref;
 
-        double     recommended_swing_times[2];
-
     public:
         /**
          * Encode a message into binary form.
@@ -129,9 +127,6 @@ int perception_information::_encodeNoHash(void *buf, int offset, int maxlen) con
     tlen = __double_encode_array(buf, offset + pos, maxlen - pos, &this->pitch_ref, 1);
     if(tlen < 0) return tlen; else pos += tlen;
 
-    tlen = __double_encode_array(buf, offset + pos, maxlen - pos, &this->recommended_swing_times[0], 2);
-    if(tlen < 0) return tlen; else pos += tlen;
-
     return pos;
 }
 
@@ -148,9 +143,6 @@ int perception_information::_decodeNoHash(const void *buf, int offset, int maxle
     tlen = __double_decode_array(buf, offset + pos, maxlen - pos, &this->pitch_ref, 1);
     if(tlen < 0) return tlen; else pos += tlen;
 
-    tlen = __double_decode_array(buf, offset + pos, maxlen - pos, &this->recommended_swing_times[0], 2);
-    if(tlen < 0) return tlen; else pos += tlen;
-
     return pos;
 }
 
@@ -160,13 +152,12 @@ int perception_information::_getEncodedSizeNoHash() const
     enc_size += __double_encoded_array_size(NULL, 6);
     enc_size += __double_encoded_array_size(NULL, 2);
     enc_size += __double_encoded_array_size(NULL, 1);
-    enc_size += __double_encoded_array_size(NULL, 2);
     return enc_size;
 }
 
 uint64_t perception_information::_computeHash(const __lcm_hash_ptr *)
 {
-    uint64_t hash = 0x2d94c6735495232fLL;
+    uint64_t hash = 0x8231d3c78964112bLL;
     return (hash<<1) + ((hash>>63)&1);
 }
 
