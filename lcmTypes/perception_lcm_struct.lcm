@@ -14,8 +14,9 @@ struct robot_states
     double   swing_foot_init_pos[6];
     double   plan_swings[2];
     double   plan_stances[2];
+    double   default_swing_total_time[2];
     float    left_foot_vel[3];
-    float    right_foot_vel[4];
+    float    right_foot_vel[3];
     float    joints_state[12];
 }
 

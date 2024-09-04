@@ -40,9 +40,11 @@ class robot_states
 
         double     plan_stances[2];
 
+        double     default_swing_total_time[2];
+
         float      left_foot_vel[3];
 
-        float      right_foot_vel[4];
+        float      right_foot_vel[3];
 
         float      joints_state[12];
 
@@ -178,10 +180,13 @@ int robot_states::_encodeNoHash(void *buf, int offset, int maxlen) const
     tlen = __double_encode_array(buf, offset + pos, maxlen - pos, &this->plan_stances[0], 2);
     if(tlen < 0) return tlen; else pos += tlen;
 
+    tlen = __double_encode_array(buf, offset + pos, maxlen - pos, &this->default_swing_total_time[0], 2);
+    if(tlen < 0) return tlen; else pos += tlen;
+
     tlen = __float_encode_array(buf, offset + pos, maxlen - pos, &this->left_foot_vel[0], 3);
     if(tlen < 0) return tlen; else pos += tlen;
 
-    tlen = __float_encode_array(buf, offset + pos, maxlen - pos, &this->right_foot_vel[0], 4);
+    tlen = __float_encode_array(buf, offset + pos, maxlen - pos, &this->right_foot_vel[0], 3);
     if(tlen < 0) return tlen; else pos += tlen;
 
     tlen = __float_encode_array(buf, offset + pos, maxlen - pos, &this->joints_state[0], 12);
@@ -230,10 +235,13 @@ int robot_states::_decodeNoHash(const void *buf, int offset, int maxlen)
     tlen = __double_decode_array(buf, offset + pos, maxlen - pos, &this->plan_stances[0], 2);
     if(tlen < 0) return tlen; else pos += tlen;
 
+    tlen = __double_decode_array(buf, offset + pos, maxlen - pos, &this->default_swing_total_time[0], 2);
+    if(tlen < 0) return tlen; else pos += tlen;
+
     tlen = __float_decode_array(buf, offset + pos, maxlen - pos, &this->left_foot_vel[0], 3);
     if(tlen < 0) return tlen; else pos += tlen;
 
-    tlen = __float_decode_array(buf, offset + pos, maxlen - pos, &this->right_foot_vel[0], 4);
+    tlen = __float_decode_array(buf, offset + pos, maxlen - pos, &this->right_foot_vel[0], 3);
     if(tlen < 0) return tlen; else pos += tlen;
 
     tlen = __float_decode_array(buf, offset + pos, maxlen - pos, &this->joints_state[0], 12);
@@ -257,15 +265,16 @@ int robot_states::_getEncodedSizeNoHash() const
     enc_size += __double_encoded_array_size(NULL, 6);
     enc_size += __double_encoded_array_size(NULL, 2);
     enc_size += __double_encoded_array_size(NULL, 2);
+    enc_size += __double_encoded_array_size(NULL, 2);
     enc_size += __float_encoded_array_size(NULL, 3);
-    enc_size += __float_encoded_array_size(NULL, 4);
+    enc_size += __float_encoded_array_size(NULL, 3);
     enc_size += __float_encoded_array_size(NULL, 12);
     return enc_size;
 }
 
 uint64_t robot_states::_computeHash(const __lcm_hash_ptr *)
 {
-    uint64_t hash = 0x499bac95d2e4b4c7LL;
+    uint64_t hash = 0x1821390bd39ed371LL;
     return (hash<<1) + ((hash>>63)&1);
 }
 
